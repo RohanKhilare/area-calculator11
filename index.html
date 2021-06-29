@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Area Calculator</title>
+
+  <style type="text/css">
+    .center {
+      color: #fff;
+      padding: 30px;
+
+      margin-top: 30px;
+      width: 60%;
+      background: green;
+      text-align: center;
+    }
+
+    label {
+      margin-right: 20px;
+      font-size: 20px;
+    }
+
+    option {
+      background-color: powderblue;
+      font-size: 15px;
+      text-align: center;
+    }
+
+    select {
+      width: 150px;
+      margin: 10px;
+      color: red;
+    }
+
+    select:focus {
+      min-width: 350px;
+      width: auto;
+    }
+
+    p {
+      background-color: yellow;
+      border: 3px;
+      font-size: 30px;
+    }
+
+    input {
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <center>
+    <h1>
+      Calculate Area
+    </h1>
+    <form action="javascript:calculateArea()" onchange="javascript:updateForm()">
+      <label for="id_types">Select a Option</label>
+      <br />
+      <select id="id_types" size="4">
+          <option value="circle">Circle</option>
+          <option value="triangle">Triangle</option>
+          <option value="square">Square</option>
+          <option value="rectangle">Rectangle</option>
+        </select>
+
+      <br /><br />
+
+      <div id="id_inputs_circle" class="center">
+        <label for="id_radius">Radius</label>
+        <br><br>
+        <input id="id_radius" type="number" min="0" step="any" />cm
+      </div>
+
+      <div class="center" id="id_inputs_triangle" hidden>
+        <label for="id_base">Base</label>
+        <br /><br>
+        <input id="id_base" type="number" min="0" step="any" />cm
+        <br /><br>
+        <label for="id_height">Height</label>
+        <br /><br>
+        <input id="id_height" type="number" min="0" step="any" />cm
+      </div>
+
+      <div class="center" id="id_inputs_square" hidden>
+        <label for="id_side">Side</label>
+        <br><br>
+        <input id="id_side" type="number" min="0" step="any" />cm
+      </div>
+
+      <div class="center" id="id_inputs_rectangle" hidden>
+        <label for="id_length">Length</label>
+        <br /><br>
+        <input id="id_length" type="number" min="0" step="any" />cm
+        <br /><br>
+        <label for="id_width">Width</label>
+        <br /><br>
+        <input id="id_width" type="number" min="0" step="any" />cm
+      </div>
+      <br /><br>
+      <input type="submit" value="Calculate Area" />
+      <p id="id_output"></p>
+    </form>
+
+    <script>
+      function updateForm() {
+          document.getElementById('id_inputs_circle').hidden = true;
+          document.getElementById('id_inputs_triangle').hidden = true;
+          document.getElementById('id_inputs_square').hidden = true;
+          document.getElementById('id_inputs_rectangle').hidden = true;
+
+          let type = document.getElementById('id_types').value;
+          switch (type) {
+            case 'circle':
+              document.getElementById('id_inputs_circle').hidden = false;
+              break;
+            case 'triangle':
+              document.getElementById('id_inputs_triangle').hidden = false;
+              break;
+            case 'square':
+              document.getElementById('id_inputs_square').hidden = false;
+              break;
+            case 'rectangle':
+              document.getElementById('id_inputs_rectangle').hidden = false;
+              break;
+          }
+        }
+
+        function calculateArea() {
+          let type = document.getElementById('id_types').value;
+
+          let area = 0;
+          switch (type) {
+            case 'circle':
+              let radius = document.getElementById('id_radius').value;
+              area = Math.PI * radius * radius;
+              break;
+            case 'triangle':
+              let base = document.getElementById('id_base').value;
+              let height = document.getElementById('id_height').value;
+              area = (base * height) / 2;
+              break;
+            case 'square':
+              let side = document.getElementById('id_side').value;
+              area = side * side;
+              break;
+            case 'rectangle':
+              let length = document.getElementById('id_length').value;
+              let width = document.getElementById('id_width').value;
+              area = length * width;
+              break;
+          }
+
+          document.getElementById('id_output').innerHTML = 'Area = ' + area;
+        }
+    </script>
+  </center>
+</body>
+
+</html>
